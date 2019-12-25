@@ -1,0 +1,38 @@
+﻿@model CBCenter.Models.NewBook
+@using (Html.BeginForm())
+{
+
+}
+<div class="row">
+    <table id="tbEntrybook">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Quantity</th>
+                <th>Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" id="BookName" style="width:500px;font-size:12px;" class="form-control" />
+                    @Html.HiddenFor(m => m.BookID)
+                    @Html.ValidationMessageFor(m => m.BookID, null, new {@class="text-danger" })
+
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Quantity, "", new {@class="form-control",@style="width:50" })
+                    @Html.ValidationMessageFor(m=>m.Quantity,null,new {@class="text-danger"})
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Discount, "", new { @class = "form-control ", @style = "width:50" })
+                    @Html.ValidationMessageFor(m => m.Discount, null, new { @class = "text-danger" })
+                </td>
+                <td>
+                    <input type="button" id="btnAddBook" value="Add" class="btn btn-primary" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

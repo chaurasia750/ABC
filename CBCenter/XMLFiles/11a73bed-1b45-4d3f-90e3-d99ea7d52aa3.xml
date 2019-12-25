@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>98</BookID>
+    <BookName>HF NEW LEARNWELL COMMUNICATIVE ENGLISH -1</BookName>
+    <Quantity>5</Quantity>
+    <GrossAmount>1200.0000</GrossAmount>
+    <Discount>20</Discount>
+    <TotalDiscount>20</TotalDiscount>
+    <NetAmount>960.0000</NetAmount>
+    <DiscountAmt>240.0000</DiscountAmt>
+  </Book>
+  <Book>
+    <BookID>143</BookID>
+    <BookName>HF NEW LEARNWELL GENERAL KNOWLEDGE-1</BookName>
+    <Quantity>5</Quantity>
+    <GrossAmount>825.0000</GrossAmount>
+    <Discount>20</Discount>
+    <TotalDiscount>20</TotalDiscount>
+    <DiscountAmt>165.0000</DiscountAmt>
+    <NetAmount>660.0000</NetAmount>
+  </Book>
+  <Book>
+    <BookID>143</BookID>
+    <BookName>HF NEW LEARNWELL GENERAL KNOWLEDGE-1</BookName>
+    <Quantity>20</Quantity>
+    <GrossAmount>3300.0000</GrossAmount>
+    <Discount>11</Discount>
+    <TotalDiscount>11</TotalDiscount>
+    <DiscountAmt>363.0000</DiscountAmt>
+    <NetAmount>2937.0000</NetAmount>
+  </Book>
+  <Book>
+    <BookID>106</BookID>
+    <BookName>HF NEW LEARNWELL COMMUNICATIVE ENGLISH ACTIVITY BOOK-1</BookName>
+    <Quantity>21</Quantity>
+    <GrossAmount>2520.0000</GrossAmount>
+    <Discount>21</Discount>
+    <TotalDiscount>21</TotalDiscount>
+    <DiscountAmt>529.2000</DiscountAmt>
+    <NetAmount>1990.8000</NetAmount>
+  </Book>
+</Books>

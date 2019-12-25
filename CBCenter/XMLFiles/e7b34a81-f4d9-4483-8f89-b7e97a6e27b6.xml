@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>98</BookID>
+    <BookName>HF NEW LEARNWELL COMMUNICATIVE ENGLISH -1</BookName>
+    <Quantity>5</Quantity>
+    <GrossAmount>1200.0000</GrossAmount>
+    <Discount>20</Discount>
+    <TotalDiscount>20</TotalDiscount>
+    <NetAmount>960.0000</NetAmount>
+    <DiscountAmt>240.0000</DiscountAmt>
+  </Book>
+  <Book>
+    <BookID>102</BookID>
+    <BookName>HF NEW LEARNWELL COMMUNICATIVE ENGLISH -5</BookName>
+    <Quantity>4</Quantity>
+    <GrossAmount>1120.0000</GrossAmount>
+    <Discount>10</Discount>
+    <TotalDiscount>10</TotalDiscount>
+    <DiscountAmt>112.0000</DiscountAmt>
+    <NetAmount>1008.0000</NetAmount>
+  </Book>
+</Books>

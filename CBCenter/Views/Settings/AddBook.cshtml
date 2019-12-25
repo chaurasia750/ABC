@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "AddBook";
+}
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title">Add Book Setting</h3>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("AddBook", "Settings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        <div class="row">
+            <div class="col-md-4">
+                <input type="file" name="fileUpload" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="Upload" class="btn btn-primary" />
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<script>
+    @if(TempData["Message"] != null)
+    {
+        <text>
+    alert("@TempData["Message"]");
+    </text>
+
+    }
+</script>

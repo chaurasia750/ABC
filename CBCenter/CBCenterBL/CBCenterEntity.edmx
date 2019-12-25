@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CBCenterDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BillTransaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="SchoolID" Type="int" />
+          <Property Name="OrderDate" Type="date" />
+          <Property Name="SystemDate" Type="datetime" />
+          <Property Name="SchoolsId" Type="int" />
+          <Property Name="BillTransactionNumber" Type="char" MaxLength="100" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="BookMaster">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Price" Type="money" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="BookYearsId" Type="int" />
+        </EntityType>
+        <EntityType Name="BookTransaction">
+          <Key>
+            <PropertyRef Name="BookTrnsID" />
+          </Key>
+          <Property Name="BookTrnsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionID" Type="int" />
+          <Property Name="BookID" Type="int" />
+          <Property Name="Discount" Type="nvarchar" MaxLength="100" />
+          <Property Name="TotalDiscount" Type="money" />
+          <Property Name="Qty" Type="int" />
+        </EntityType>
+        <EntityType Name="ReceivePayment">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolsId" Type="int" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="ReceiveDate" Type="datetime" />
+          <Property Name="SystemReciveDate" Type="datetime" />
+          <Property Name="Mode" Type="int" />
+          <Property Name="BillTransactionNumber" Type="char" MaxLength="100" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="SchoolMaster">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SchoolAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SchoolsMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SchoolAddress" Type="nvarchar" MaxLength="300" />
+          <Property Name="SchoolGSTINO" Type="nvarchar" MaxLength="20" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="12" />
+          <Property Name="AlternateNo" Type="nvarchar" MaxLength="12" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SellBookTransaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookID" Type="int" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="Discount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TotalDiscount" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SellCustoemrRecords">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CustomerAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="SellDate" Type="datetime" />
+          <Property Name="SystemDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__BillTrans__Schoo__3C69FB99">
+          <End Role="SchoolMaster" Type="Self.SchoolMaster" Multiplicity="0..1" />
+          <End Role="BillTransaction" Type="Self.BillTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolMaster">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="BillTransaction">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BillTrans__Schoo__6E01572D">
+          <End Role="SchoolsMaster" Type="Self.SchoolsMaster" Multiplicity="0..1" />
+          <End Role="BillTransaction" Type="Self.BillTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolsMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillTransaction">
+              <PropertyRef Name="SchoolsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookTrans__BookI__403A8C7D">
+          <End Role="BookMaster" Type="Self.BookMaster" Multiplicity="0..1" />
+          <End Role="BookTransaction" Type="Self.BookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookMaster">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookTransaction">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookTrans__Trans__3F466844">
+          <End Role="BillTransaction" Type="Self.BillTransaction" Multiplicity="0..1" />
+          <End Role="BookTransaction" Type="Self.BookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillTransaction">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="BookTransaction">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReceivePa__Schoo__40F9A68C">
+          <End Role="SchoolsMaster" Type="Self.SchoolsMaster" Multiplicity="0..1" />
+          <End Role="ReceivePayment" Type="Self.ReceivePayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolsMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReceivePayment">
+              <PropertyRef Name="SchoolsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SellBookT__BookI__239E4DCF">
+          <End Role="BookMaster" Type="Self.BookMaster" Multiplicity="0..1" />
+          <End Role="SellBookTransaction" Type="Self.SellBookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookMaster">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="SellBookTransaction">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SellBookT__Custo__24927208">
+          <End Role="SellCustoemrRecords" Type="Self.SellCustoemrRecords" Multiplicity="0..1" />
+          <End Role="SellBookTransaction" Type="Self.SellBookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SellCustoemrRecords">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SellBookTransaction">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Sp_GetAllOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Sp_GetPreviousOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SchoolId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="CBCenterDBModelStoreContainer">
+          <EntitySet Name="BillTransaction" EntityType="Self.BillTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookMaster" EntityType="Self.BookMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookTransaction" EntityType="Self.BookTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceivePayment" EntityType="Self.ReceivePayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolMaster" EntityType="Self.SchoolMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolsMaster" EntityType="Self.SchoolsMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellBookTransaction" EntityType="Self.SellBookTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellCustoemrRecords" EntityType="Self.SellCustoemrRecords" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BillTrans__Schoo__3C69FB99" Association="Self.FK__BillTrans__Schoo__3C69FB99">
+            <End Role="SchoolMaster" EntitySet="SchoolMaster" />
+            <End Role="BillTransaction" EntitySet="BillTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BillTrans__Schoo__6E01572D" Association="Self.FK__BillTrans__Schoo__6E01572D">
+            <End Role="SchoolsMaster" EntitySet="SchoolsMaster" />
+            <End Role="BillTransaction" EntitySet="BillTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookTrans__BookI__403A8C7D" Association="Self.FK__BookTrans__BookI__403A8C7D">
+            <End Role="BookMaster" EntitySet="BookMaster" />
+            <End Role="BookTransaction" EntitySet="BookTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookTrans__Trans__3F466844" Association="Self.FK__BookTrans__Trans__3F466844">
+            <End Role="BillTransaction" EntitySet="BillTransaction" />
+            <End Role="BookTransaction" EntitySet="BookTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReceivePa__Schoo__40F9A68C" Association="Self.FK__ReceivePa__Schoo__40F9A68C">
+            <End Role="SchoolsMaster" EntitySet="SchoolsMaster" />
+            <End Role="ReceivePayment" EntitySet="ReceivePayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SellBookT__BookI__239E4DCF" Association="Self.FK__SellBookT__BookI__239E4DCF">
+            <End Role="BookMaster" EntitySet="BookMaster" />
+            <End Role="SellBookTransaction" EntitySet="SellBookTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SellBookT__Custo__24927208" Association="Self.FK__SellBookT__Custo__24927208">
+            <End Role="SellCustoemrRecords" EntitySet="SellCustoemrRecords" />
+            <End Role="SellBookTransaction" EntitySet="SellBookTransaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CBCenterDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookMaster">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BookName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SellBookTransactions" Relationship="Self.FK__SellBookT__BookI__239E4DCF" FromRole="BookMaster" ToRole="SellBookTransaction" />
+          <NavigationProperty Name="BookTransactions" Relationship="CBCenterDBModel.FK__BookTrans__BookI__403A8C7D" FromRole="BookMaster" ToRole="BookTransaction" />
+          <Property Name="BookYearsId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SellBookTransaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="BookMaster" Relationship="Self.FK__SellBookT__BookI__239E4DCF" FromRole="SellBookTransaction" ToRole="BookMaster" />
+          <NavigationProperty Name="SellCustoemrRecord" Relationship="Self.FK__SellBookT__Custo__24927208" FromRole="SellBookTransaction" ToRole="SellCustoemrRecords" />
+          <Property Name="TotalDiscount" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SellCustoemrRecord">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SellDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SellBookTransactions" Relationship="Self.FK__SellBookT__Custo__24927208" FromRole="SellCustoemrRecords" ToRole="SellBookTransaction" />
+          <Property Name="SystemDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK__SellBookT__BookI__239E4DCF">
+          <End Role="BookMaster" Type="Self.BookMaster" Multiplicity="0..1" />
+          <End Role="SellBookTransaction" Type="Self.SellBookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookMaster">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="SellBookTransaction">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SellBookT__Custo__24927208">
+          <End Role="SellCustoemrRecords" Type="Self.SellCustoemrRecord" Multiplicity="0..1" />
+          <End Role="SellBookTransaction" Type="Self.SellBookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SellCustoemrRecords">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SellBookTransaction">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CBCenterDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookMasters" EntityType="Self.BookMaster" />
+          <EntitySet Name="SellBookTransactions" EntityType="Self.SellBookTransaction" />
+          <EntitySet Name="SellCustoemrRecords" EntityType="Self.SellCustoemrRecord" />
+          <AssociationSet Name="FK__SellBookT__BookI__239E4DCF" Association="Self.FK__SellBookT__BookI__239E4DCF">
+            <End Role="BookMaster" EntitySet="BookMasters" />
+            <End Role="SellBookTransaction" EntitySet="SellBookTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SellBookT__Custo__24927208" Association="Self.FK__SellBookT__Custo__24927208">
+            <End Role="SellCustoemrRecords" EntitySet="SellCustoemrRecords" />
+            <End Role="SellBookTransaction" EntitySet="SellBookTransactions" />
+          </AssociationSet>
+          <EntitySet Name="BillTransactions" EntityType="CBCenterDBModel.BillTransaction" />
+          <EntitySet Name="BookTransactions" EntityType="CBCenterDBModel.BookTransaction" />
+          <EntitySet Name="SchoolMasters" EntityType="CBCenterDBModel.SchoolMaster" />
+          <AssociationSet Name="FK__BillTrans__Schoo__3C69FB99" Association="CBCenterDBModel.FK__BillTrans__Schoo__3C69FB99">
+            <End Role="SchoolMaster" EntitySet="SchoolMasters" />
+            <End Role="BillTransaction" EntitySet="BillTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookTrans__Trans__3F466844" Association="CBCenterDBModel.FK__BookTrans__Trans__3F466844">
+            <End Role="BillTransaction" EntitySet="BillTransactions" />
+            <End Role="BookTransaction" EntitySet="BookTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookTrans__BookI__403A8C7D" Association="CBCenterDBModel.FK__BookTrans__BookI__403A8C7D">
+            <End Role="BookMaster" EntitySet="BookMasters" />
+            <End Role="BookTransaction" EntitySet="BookTransactions" />
+          </AssociationSet>
+          <EntitySet Name="SchoolsMasters" EntityType="CBCenterDBModel.SchoolsMaster" />
+          <AssociationSet Name="FK__BillTrans__Schoo__6E01572D" Association="CBCenterDBModel.FK__BillTrans__Schoo__6E01572D">
+            <End Role="SchoolsMaster" EntitySet="SchoolsMasters" />
+            <End Role="BillTransaction" EntitySet="BillTransactions" />
+          </AssociationSet>
+          <FunctionImport Name="Sp_GetPreviousOrderDetails" ReturnType="Collection(CBCenterDBModel.Sp_GetPreviousOrderDetails_Result)">
+          <Parameter Name="SchoolId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_GetAllOrderDetails" ReturnType="Collection(CBCenterDBModel.Sp_GetAllOrderDetails_Result)" />
+          <EntitySet Name="ReceivePayments" EntityType="CBCenterDBModel.ReceivePayment" />
+          <AssociationSet Name="FK__ReceivePa__Schoo__40F9A68C" Association="CBCenterDBModel.FK__ReceivePa__Schoo__40F9A68C">
+            <End Role="SchoolsMaster" EntitySet="SchoolsMasters" />
+            <End Role="ReceivePayment" EntitySet="ReceivePayments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BillTransaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="0" />
+          <Property Name="SystemDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SchoolMaster" Relationship="CBCenterDBModel.FK__BillTrans__Schoo__3C69FB99" FromRole="BillTransaction" ToRole="SchoolMaster" />
+          <NavigationProperty Name="BookTransactions" Relationship="CBCenterDBModel.FK__BookTrans__Trans__3F466844" FromRole="BillTransaction" ToRole="BookTransaction" />
+          <Property Name="SchoolsId" Type="Int32" />
+          <NavigationProperty Name="SchoolsMaster" Relationship="CBCenterDBModel.FK__BillTrans__Schoo__6E01572D" FromRole="BillTransaction" ToRole="SchoolsMaster" />
+          <Property Name="BillTransactionNumber" Type="String" MaxLength="100" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="BookTransaction">
+          <Key>
+            <PropertyRef Name="BookTrnsID" />
+          </Key>
+          <Property Name="BookTrnsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionID" Type="Int32" />
+          <Property Name="BookID" Type="Int32" />
+          <Property Name="Discount" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TotalDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Qty" Type="Int32" />
+          <NavigationProperty Name="BillTransaction" Relationship="CBCenterDBModel.FK__BookTrans__Trans__3F466844" FromRole="BookTransaction" ToRole="BillTransaction" />
+          <NavigationProperty Name="BookMaster" Relationship="CBCenterDBModel.FK__BookTrans__BookI__403A8C7D" FromRole="BookTransaction" ToRole="BookMaster" />
+        </EntityType>
+        <EntityType Name="SchoolMaster">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillTransactions" Relationship="CBCenterDBModel.FK__BillTrans__Schoo__3C69FB99" FromRole="SchoolMaster" ToRole="BillTransaction" />
+        </EntityType>
+        <Association Name="FK__BillTrans__Schoo__3C69FB99">
+          <End Type="CBCenterDBModel.SchoolMaster" Role="SchoolMaster" Multiplicity="0..1" />
+          <End Type="CBCenterDBModel.BillTransaction" Role="BillTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolMaster">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="BillTransaction">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookTrans__Trans__3F466844">
+          <End Type="CBCenterDBModel.BillTransaction" Role="BillTransaction" Multiplicity="0..1" />
+          <End Type="CBCenterDBModel.BookTransaction" Role="BookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillTransaction">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="BookTransaction">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookTrans__BookI__403A8C7D">
+          <End Type="CBCenterDBModel.BookMaster" Role="BookMaster" Multiplicity="0..1" />
+          <End Type="CBCenterDBModel.BookTransaction" Role="BookTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookMaster">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookTransaction">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SchoolsMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolGSTINO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateNo" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillTransactions" Relationship="CBCenterDBModel.FK__BillTrans__Schoo__6E01572D" FromRole="SchoolsMaster" ToRole="BillTransaction" />
+          <NavigationProperty Name="ReceivePayments" Relationship="CBCenterDBModel.FK__ReceivePa__Schoo__40F9A68C" FromRole="SchoolsMaster" ToRole="ReceivePayment" />
+        </EntityType>
+        <Association Name="FK__BillTrans__Schoo__6E01572D">
+          <End Type="CBCenterDBModel.SchoolsMaster" Role="SchoolsMaster" Multiplicity="0..1" />
+          <End Type="CBCenterDBModel.BillTransaction" Role="BillTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolsMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillTransaction">
+              <PropertyRef Name="SchoolsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Sp_GetPreviousOrderDetails_Result">
+          <Property Type="String" Name="BillNo" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Totalprice" Nullable="true" Precision="19" />
+          <Property Type="String" Name="OrderDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="Sp_GetAllOrderDetails_Result">
+          <Property Type="String" Name="BillNo" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Totalprice" Nullable="true" Precision="19" />
+          <Property Type="String" Name="OrderDate" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="TransactionID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="ReceivePayment">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolsId" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ReceiveDate" Type="DateTime" Precision="3" />
+          <Property Name="SystemReciveDate" Type="DateTime" Precision="3" />
+          <Property Name="Mode" Type="Int32" />
+          <NavigationProperty Name="SchoolsMaster" Relationship="CBCenterDBModel.FK__ReceivePa__Schoo__40F9A68C" FromRole="ReceivePayment" ToRole="SchoolsMaster" />
+          <Property Name="BillTransactionNumber" Type="String" MaxLength="100" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <Association Name="FK__ReceivePa__Schoo__40F9A68C">
+          <End Type="CBCenterDBModel.SchoolsMaster" Role="SchoolsMaster" Multiplicity="0..1" />
+          <End Type="CBCenterDBModel.ReceivePayment" Role="ReceivePayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolsMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReceivePayment">
+              <PropertyRef Name="SchoolsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CBCenterDBModelStoreContainer" CdmEntityContainer="CBCenterDBEntities">
+          <EntitySetMapping Name="BookMasters">
+            <EntityTypeMapping TypeName="CBCenterDBModel.BookMaster">
+              <MappingFragment StoreEntitySet="BookMaster">
+                <ScalarProperty Name="BookYearsId" ColumnName="BookYearsId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellBookTransactions">
+            <EntityTypeMapping TypeName="CBCenterDBModel.SellBookTransaction">
+              <MappingFragment StoreEntitySet="SellBookTransaction">
+                <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellCustoemrRecords">
+            <EntityTypeMapping TypeName="CBCenterDBModel.SellCustoemrRecord">
+              <MappingFragment StoreEntitySet="SellCustoemrRecords">
+                <ScalarProperty Name="SystemDate" ColumnName="SystemDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="SellDate" ColumnName="SellDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillTransactions">
+            <EntityTypeMapping TypeName="CBCenterDBModel.BillTransaction">
+              <MappingFragment StoreEntitySet="BillTransaction">
+                <ScalarProperty Name="BillTransactionNumber" ColumnName="BillTransactionNumber" />
+                <ScalarProperty Name="SchoolsId" ColumnName="SchoolsId" />
+                <ScalarProperty Name="SystemDate" ColumnName="SystemDate" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookTransactions">
+            <EntityTypeMapping TypeName="CBCenterDBModel.BookTransaction">
+              <MappingFragment StoreEntitySet="BookTransaction">
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="BookTrnsID" ColumnName="BookTrnsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolMasters">
+            <EntityTypeMapping TypeName="CBCenterDBModel.SchoolMaster">
+              <MappingFragment StoreEntitySet="SchoolMaster">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="SchoolAddress" ColumnName="SchoolAddress" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolsMasters">
+            <EntityTypeMapping TypeName="CBCenterDBModel.SchoolsMaster">
+              <MappingFragment StoreEntitySet="SchoolsMaster">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="AlternateNo" ColumnName="AlternateNo" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="SchoolGSTINO" ColumnName="SchoolGSTINO" />
+                <ScalarProperty Name="SchoolAddress" ColumnName="SchoolAddress" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_GetPreviousOrderDetails" FunctionName="CBCenterDBModel.Store.Sp_GetPreviousOrderDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CBCenterDBModel.Sp_GetPreviousOrderDetails_Result">
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="Totalprice" ColumnName="Totalprice" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_GetAllOrderDetails" FunctionName="CBCenterDBModel.Store.Sp_GetAllOrderDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CBCenterDBModel.Sp_GetAllOrderDetails_Result">
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="Totalprice" ColumnName="Totalprice" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ReceivePayments">
+            <EntityTypeMapping TypeName="CBCenterDBModel.ReceivePayment">
+              <MappingFragment StoreEntitySet="ReceivePayment">
+                <ScalarProperty Name="BillTransactionNumber" ColumnName="BillTransactionNumber" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="SystemReciveDate" ColumnName="SystemReciveDate" />
+                <ScalarProperty Name="ReceiveDate" ColumnName="ReceiveDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="SchoolsId" ColumnName="SchoolsId" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

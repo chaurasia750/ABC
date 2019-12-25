@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "SchoolList";
+}
+@model IEnumerable<CBCenter.Models.AddSchoolModel>
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">School List</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-responsive table-bordered" id="tblBookList">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>School Name</th>
+                    <th>School Address</th>
+                    <th>Contact No.</th>
+                    <th>Alternate No.</th>
+                    <th>GSTN</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Select((item, index) => new { item, index }))
+                {
+                    <tr>
+                        <td>
+                            @(item.index + 1)
+                        </td>
+                        <td>
+                            @item.item.SchoolName
+                        </td>
+                        <td>
+                            @item.item.SchoolAddress
+                        </td>
+                        <td>
+                            @item.item.ContactNo
+                        </td>
+                        <td>
+                            @item.item.AlternateNo
+                        </td>
+                        <td>
+                            @item.item.GSTN
+                        </td>
+                        <td>
+                            <button id="@item.item.Id" class="btn btn-primary edit">Edit</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">School Information</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divSchoolName">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.edit').click(function () {
+            var id = $(this).prop('id');
+            var url = "@Url.Action("ShowUpdateSchoolModel", "Settings")" + "?id=" + id;
+            $.ajax({
+                method: 'post',
+                dataType:"html",
+                url: url,
+                success: function (data) {
+                    $('#divSchoolName').html(data);
+                    $('#myModal').modal('show');
+                }
+            });
+            
+        });
+    });
+</script>

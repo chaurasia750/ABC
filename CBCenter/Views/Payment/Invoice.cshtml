@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Invoice";
+}
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">Invoice</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Select School Name</label>
+                @Html.DropDownList("SchoolId", ViewBag.Schools as IEnumerable<SelectListItem>, "Select School", new { @class = "form-control" })
+            </div>
+         
+        </div>
+        <div class="row">
+            <br />
+            <div id="allOrderDiv">
+
+            </div>
+            <div class="col-sm-12 form-group text-right" id="panelAddPayemnt" style="display:none">
+                <button type="button" id="btnReceivePayment" class="btn btn-info preview-add-button">
+                    <span class="glyphicon glyphicon-plus"></span> Add Payment
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    <div id="divRecievPayment">
+
+    </div>
+    
+
+</div>
+
+<script>
+    $(function () {
+        var schoolsId = "";
+        $('#SchoolId').change(function () {
+             schoolsId = $(this).val();
+            $('#divPreviousOrderDetails').html('');
+            var url = "@Url.Action("PreviousOrder", "Order")" + "?schoolId=" + schoolsId;
+            $('#allOrderDiv').load(url);
+            $('#panelAddPayemnt').show();
+        });
+
+        $('#btnReceivePayment').on('click', function () {
+            $('#divRecievPayment').html('');
+            var url = "@Url.Action("ReceivePayment", "Payment")" + "?schoolsId=" + schoolsId;
+            $('#divRecievPayment').load(url);
+            $('#panelAddPayemnt').hide();
+            
+        });
+        
+
+    });
+</script>

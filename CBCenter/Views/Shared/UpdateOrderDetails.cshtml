@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CBCenter.Models.BookCalculation>
+<table class="table table-striped table-bordered" id="tblOrderDetails">
+    <thead>
+        <tr>
+            <th>S.No.</th>
+            <th>Book Name</th>
+            <th>Qunt.</th>
+            <th>Price</th>
+            <th>Gross Amt.</th>
+            <th>Discount(%)</th>
+            <th>Net Amt.</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <tr></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((item, index) => new { item = item, index = index }))
+        {
+            <tr>
+                <td>@(item.index + 1)</td>
+                <td>@item.item.BookName</td>
+                <td class="quantity">
+                    <span>
+                        @item.item.Quantity
+                    </span>
+                    <input type="text" class="form-control" value="@item.item.Quantity" style="display:none" />
+                </td>
+                <td>@((item.item.GrossAmount / item.item.Quantity).Value.ToString("0.00"))</td>
+                <td>@item.item.GrossAmount.Value.ToString("0.00")</td>
+                <td class="discount">
+                    <span>@item.item.Discount</span>
+                    <input type="text" class="form-control" value="@item.item.Discount" style="display:none" />
+                    <input type="hidden" class="BookTransactionId" value="@item.item.BookTransactionId" />
+                </td>
+                <td>@item.item.NetAmount.Value.ToString("0.00")</td>
+                <td>
+
+                    <button  type="button" class="btn-primary Edit glyphicon glyphicon-edit"></button>
+                    <button class="btn btn-primary Update" style="display:none">Update</button>
+
+                </td>
+                <td>
+                    <button  type="button" class="btn-danger Delete glyphicon glyphicon-trash"></button>
+                    <button class="btn btn-danger Cancel" style="display:none">Cancel</button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        @if (Model.Count() > 0)
+        {
+            <tr>
+
+                <th colspan="2">Total :-</th>
+                <th>@Model.Sum(x => x.Quantity)</th>
+                <th></th>
+                <th>@Model.Sum(x => x.GrossAmount).Value.ToString("#.00")</th>
+                <th>@(Model.Sum(x => x.DiscountAmt).Value.ToString("#.00"))</th>
+                <th colspan="2">@Model.Sum(x => x.NetAmount).Value.ToString("#.00")</th>
+
+            </tr>
+        }
+
+    </tfoot>
+</table>

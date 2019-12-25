@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>1333</BookID>
+    <BookName>HF ABSOLUTE MATHEMATICS GRADE-1</BookName>
+    <Quantity>10</Quantity>
+    <GrossAmount>1800.0000</GrossAmount>
+    <Discount>60+50</Discount>
+    <TotalDiscount>80</TotalDiscount>
+    <NetAmount>360.0000</NetAmount>
+    <DiscountAmt>1440.0000</DiscountAmt>
+  </Book>
+</Books>

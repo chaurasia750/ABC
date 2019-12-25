@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>1325</BookID>
+    <BookName>HF AAO HINDI LIKHEN-0</BookName>
+    <Quantity>20</Quantity>
+    <GrossAmount>1600.0000</GrossAmount>
+    <Discount>5</Discount>
+    <TotalDiscount>5</TotalDiscount>
+    <NetAmount>1520.0000</NetAmount>
+    <DiscountAmt>80.0000</DiscountAmt>
+  </Book>
+</Books>

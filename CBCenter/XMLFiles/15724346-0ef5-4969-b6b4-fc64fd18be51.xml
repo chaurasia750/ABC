@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>161</BookID>
+    <BookName>HF NEW LEARNWELL HINDI SURABHI-3</BookName>
+    <Quantity>50</Quantity>
+    <GrossAmount>11250.0000</GrossAmount>
+    <Discount>20</Discount>
+    <TotalDiscount>20</TotalDiscount>
+    <NetAmount>9000.0000</NetAmount>
+    <DiscountAmt>2250.0000</DiscountAmt>
+  </Book>
+</Books>

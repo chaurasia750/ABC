@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CBCenter.Models.PreviousOrderDetails>
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">All Orders</h3>
+
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            <tr>
+
+                <th>Bill No</th>
+                <th>Order Date</th>
+                <th>Total Amount</th>
+                <th colspan="2">Action</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BillNo</td>
+                    <td>@item.OrderDate</td>
+                    <td>@(item.TotalOrderPrice.Value.ToString("#.00"))</td>
+                    <td>
+                        <a href="@Url.Action("PrintOrder", "Order",new {BillNo=item.BillNo })">Print Order</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ModifyOrderDetails", "Order",new {transactionId=item.BillTransactionId })">Modify Order</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+

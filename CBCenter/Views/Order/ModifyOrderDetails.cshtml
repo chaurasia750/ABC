@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "ModifyOrderDetails";
+}
+<style>
+    .container {
+        max-width: 96% !important;
+    }
+</style>
+@model CBCenter.Models.ModifyOrderDetailsModel
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">Modify Order Details</h3>
+        </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label>
+                    @Model.SchoolName
+
+                </label>
+                <p>
+                    @Model.SchoolAddress
+                </p>
+            </div>
+            <div class="col-md-3">
+                <span>Bill No.-</span> <label>  @Model.BillNo</label>
+            </div>
+            <div class="col-md-3">
+                <span>Order Date</span>   <label> @Model.OrderDate.Value.ToString("dd MMM yyyy")</label>
+            </div>
+        </div>
+
+        <div id="divOrderEntry">
+            @{ Html.RenderPartial("_OrderDetails", Model.OrderDetails);}
+        </div>
+
+        <div class="navbar-link">
+            <a class="pull-right" href="@Url.Action("PrintOrder","Order",new {BillNo=Model.BillNo })"><h3>Go to Print</h3></a>
+        </div>
+    </div>
+
+  
+    </div>
+
+
+

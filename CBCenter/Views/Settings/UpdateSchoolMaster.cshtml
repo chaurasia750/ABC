@@ -1,0 +1,96 @@
+﻿@model CBCenter.Models.AddSchoolModel
+@Scripts.Render("~/bundles/jqueryval")
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">Update School Information</h3>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("UpdateSchoolMaster", "Settings", FormMethod.Post, new { @id = "formAddSchool" }))
+        {
+            <div class="panel-body form-horizontal payment-form">
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.Id)
+                </div>
+            </div>
+            <div class="panel-body form-horizontal payment-form">
+                <div class="form-group">
+                    <label for="concept" class="col-sm-3 control-label">School Name</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.SchoolName, new { @class = "form-control", @placeholder = "School Name" })
+                        @Html.ValidationMessageFor(m => m.SchoolName, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-sm-3 control-label">School Address</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.SchoolAddress, "", new { @class = "form-control", @placeholder = "School Full Address" })
+                        @Html.ValidationMessageFor(m => m.SchoolAddress, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="amount" class="col-sm-3 control-label">Contact No.</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.ContactNo, "", new { @class = "form-control", @placeholder = "School Contact Number" })
+                        @Html.ValidationMessageFor(m => m.ContactNo, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date" class="col-sm-3 control-label">Alternate Contact No.</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.AlternateNo, "", new { @class = "form-control", @placeholder = "School Alternate Contact No." })
+                        @Html.ValidationMessageFor(m => m.AlternateNo, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date" class="col-sm-3 control-label">GSTN No.</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.GSTN, "", new { @class = "form-control", @placeholder = "GSTN No." })
+                        @Html.ValidationMessageFor(m => m.GSTN, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 text-right">
+                        <button type="submit" id="btnsubmit" class="btn btn-warning">
+                            Update
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $('#formAddSchool').submit(function (event) {
+            event.preventDefault()
+            var form = $("#formAddSchool");
+            var valid = form.validate();
+            var action = $(this).attr("action")
+            var data = $(this).serialize();
+            if (valid) {
+                $.ajax({
+                    method: 'post',
+                    dataType:'json',
+                    url: action,
+                    data: data,
+                    success: function (result) {
+                        var confirm = result;
+                        if (confirm['success'] != null) {
+                            alert('Record Update');
+                            $('#myModal').modal('hide');
+                        }
+                        else if (confirm['error'] != null) {
+                            alert(confirm['error']);
+                        }
+                    }
+                    
+                })
+            }
+        });
+    });
+</script>

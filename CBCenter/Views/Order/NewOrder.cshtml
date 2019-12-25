@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "NewOrder";
+}
+@model CBCenter.Models.NewOrderModel
+
+<style>
+    .container {
+        max-width: 96% !important;
+    }
+</style>
+
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+<style>
+    #tbEntrybook thead tr th {
+        text-align: center
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#OrderDate").val("@System.DateTime.Now.ToString("dd/MM/yyyy")");
+        $("#OrderDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+
+        });
+       // var url = "@Url.Action("AutoBookName", "Order")";
+        $("#BookName").autocomplete({
+
+            source: function (request, response) {
+                $.ajax({
+                    async: true, cache: false,
+                    url: "@(Url.Action("AutoBookName","Order"))",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.BookName, val: item.BookId };
+                        }))
+
+                    }
+
+                })
+            },
+
+            messages: {
+                noResults: '',
+                results: function (resultsCount) { }
+            },
+            select: function (e, i) {
+                $('#BookID').val(i.item.val);
+            },
+            minLength: 1
+        });
+        $('#SelectedSchoolId').change(function () {
+            var schoolsId = $(this).val();
+            $('#divPreviousOrderDetails').html('');
+            var url = "@Url.Action("PreviousOrder", "Order")" + "?schoolId=" + schoolsId;
+            $('#divPreviousOrderDetails').load(url);
+        });
+        @if(Session["xmlFileName"] !=null)
+        {
+         <text>
+        $('#divSellEntry').load("@Url.Action("TempSellEntry","Order")");
+        </text>
+        }
+        $('#btnAddBook').click(function () {
+            
+        });
+        $('#formAddOrder').submit(function (event) {
+            event.preventDefault();
+            var form = $("#formAddOrder");
+            
+            var action = $(this).attr("action")
+            var formData = $(this).serialize();
+            if ($(this).valid()) {
+                $.ajax({
+                    method: 'post',
+                    url: action,
+                    data: formData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success == "0") {
+                            alert("Application Errror !!!!");
+                        }
+                        else {
+                            window.location.href = "@Url.Action("ModifyOrderDetails", "Order")" + "?transactionId=" + data.transactionId;
+                        }
+                        console.log(data.d);
+                    }
+                });
+            }
+            });
+    
+    });
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">New Order</h3>
+    </div>
+    
+        <div class="panel-body">
+            @using (Html.BeginForm("SaveNewOrder", "Order", FormMethod.Post, new { @id = "formAddOrder" }))
+            {
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Select School</label>
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.SelectedSchoolId, Model.Schools, "Select School", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.SelectedSchoolId, null, new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Bill No.</label>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.BillNo, "", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.BillNo, null, new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Order Date</label>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.OrderDate, "", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.OrderDate, null, new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+              
+                <div id="divPreviousOrderDetails">
+
+                </div>
+                <div id="divSellEntry"></div>
+            }
+            @{Html.RenderAction("BookEntry"); }
+
+        </div>
+    
+</div>
+
+

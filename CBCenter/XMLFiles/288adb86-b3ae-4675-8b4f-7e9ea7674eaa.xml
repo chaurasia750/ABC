@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>144</BookID>
+    <BookName>HF NEW LEARNWELL GENERAL KNOWLEDGE-2</BookName>
+    <Quantity>20</Quantity>
+    <GrossAmount>3500.0000</GrossAmount>
+    <Discount>25</Discount>
+    <TotalDiscount>25</TotalDiscount>
+    <NetAmount>2625.0000</NetAmount>
+    <DiscountAmt>875.0000</DiscountAmt>
+  </Book>
+</Books>

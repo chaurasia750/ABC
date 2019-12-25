@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e449501e6d274dcda8d2bf630930d69e" Name="Diagram1">
+        <EntityTypeShape EntityType="CBCenterDBModel.BookMaster" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBCenterDBModel.SellBookTransaction" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBCenterDBModel.SellCustoemrRecord" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="CBCenterDBModel.FK__SellBookT__BookI__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="CBCenterDBModel.FK__SellBookT__Custo__24927208" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CBCenterDBModel.BillTransaction" Width="1.5" PointX="3.75" PointY="8.875" />
+        <EntityTypeShape EntityType="CBCenterDBModel.BookTransaction" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="CBCenterDBModel.SchoolMaster" Width="1.5" PointX="1.5" PointY="9.125" />
+        <AssociationConnector Association="CBCenterDBModel.FK__BillTrans__Schoo__3C69FB99" />
+        <AssociationConnector Association="CBCenterDBModel.FK__BookTrans__Trans__3F466844" />
+        <AssociationConnector Association="CBCenterDBModel.FK__BookTrans__BookI__403A8C7D" />
+        <EntityTypeShape EntityType="CBCenterDBModel.SchoolsMaster" Width="1.5" PointX="3.375" PointY="4.75" />
+        <AssociationConnector Association="CBCenterDBModel.FK__BillTrans__Schoo__6E01572D" />
+        <EntityTypeShape EntityType="CBCenterDBModel.ReceivePayment" Width="1.5" PointX="5.625" PointY="5" />
+        <AssociationConnector Association="CBCenterDBModel.FK__ReceivePa__Schoo__40F9A68C" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

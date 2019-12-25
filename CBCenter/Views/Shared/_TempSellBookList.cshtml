@@ -1,0 +1,87 @@
+﻿@model IEnumerable<CBCenter.Models.BookCalculation>
+
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:  #095f59;">
+        <h3 class="panel-title" style="color:white;font:bold">Order Entry</h3>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Book Name</th>
+                <th>Qunt.</th>
+                <th>Price</th>
+                <th>Gross Amt.</th>
+                <th>Discount(%)</th>
+                <th>Net Amt.</th>
+                <th>Action</th>
+            </tr>
+            <tr></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Select((item, index) => new { item = item, index = index }))
+            {
+                <tr>
+                    <td>@(item.index + 1)</td>
+                    <td>@item.item.BookName</td>
+                    <td>@item.item.Quantity</td>
+                    <td>@((item.item.GrossAmount / item.item.Quantity).Value.ToString("0.00"))</td>
+                    <td>@item.item.GrossAmount.Value.ToString("0.00")</td>
+                    <td>@item.item.Discount</td>
+                    <td>@item.item.NetAmount.Value.ToString("0.00")</td>
+                    <td>
+                        <button id="@item.item.BookID" type="button" class="btn btn-danger delete"> Del</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            @if (Model.Count() > 0)
+            {
+                <tr>
+
+                    <th colspan="2">Total :-</th>
+                    <th>@Model.Sum(x => x.Quantity)</th>
+                    <th></th>
+                    <th>@Model.Sum(x => x.GrossAmount).Value.ToString("#.00")</th>
+                    <th>@(Model.Sum(x => x.DiscountAmt).Value.ToString("#.00"))</th>
+                    <th colspan="2">@Model.Sum(x => x.NetAmount).Value.ToString("#.00")</th>
+
+                </tr>
+            }
+
+        </tfoot>
+    </table>
+    <div class="panel-footer" style="height:54px">
+        <input type="submit" id="btnSaveRecords" value="Save Orders" class="btn btn-primary pull-right" />
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.delete').click(function (evt) {
+            var result = confirm("Want to delete this Entry?");
+            if (result) {
+                $.ajax({
+                    method: 'post',
+                    url: "@Url.Action("DeleteXMLEntry","Order")",
+                    data: { BookID: $(this).prop("id") },
+                    success:function(del)
+                    {
+                        var confirm = del;
+                        if (confirm ['del']== "1")
+                        {
+                            alert('Deleted successfully');
+                            $('#divSellEntry').load("@Url.Action("TempSellEntry","Order")");
+                        }
+                        else {
+                            alert('failed');
+
+                        }
+                    }
+                });
+            }
+
+        });
+    })
+</script>

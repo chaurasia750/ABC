@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<CBCenter.Models.PreviousOrderDetails>
+
+<div class="panel-body">
+    <table class="table table-striped table-hover">
+        <tr>
+            
+            <th>Bill No</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BillNo</td>
+                <td>@item.OrderDate</td>
+                <td>@(item.TotalOrderPrice.Value.ToString("#.00"))</td>
+            </tr>
+        }
+
+    </table>
+</div>

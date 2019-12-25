@@ -1,0 +1,66 @@
+﻿@model CBCenter.Models.NewBook
+@using (Html.BeginForm("SavedBookEntry", "Order", FormMethod.Post, new { @id = "formBookEntry" }))
+{
+    <div class="row">
+        <div class="col-md-7">
+            <label>Book Name</label>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.BookName, "", new { @class = "form-control", @placeholder = "Enter Book Name" })
+                @Html.HiddenFor(m => m.BookID)
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <label>Quantity</label>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Quantity, "", new { @class = "form-control", @placeholder = "Quantity" })
+                @Html.ValidationMessageFor(m => m.Quantity, null, new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <label>Discount</label>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Discount, "", new { @class = "form-control", @placeholder = "Discount" })
+                @Html.ValidationMessageFor(m => m.Discount, null, new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="col-md-1 form-group">
+            <br />
+            <input type="submit" id="btnAddBook1" value="Add" class="btn btn-primary" />
+        </div>
+
+    </div>
+}
+<script>
+    $(function () {
+        $('#formBookEntry').submit(function (event) {
+            event.preventDefault();
+            var form = $("#formBookEntry");
+
+            var action = $(this).attr("action")
+            var formData = $(this).serialize();
+            if ($(this).valid()) {
+                $.ajax({
+                method: 'post',
+                url: action,
+                data: formData,
+                dataType: "json",
+                    success: function (data) {
+                        var cnfrm = data;
+                        if (cnfrm['succes']!='0') {
+                   $('#divSellEntry').load("@Url.Action("TempSellEntry","Order")");
+                        $('#Quantity').val('');
+                    $('#BookName').val('');
+                            $('#BookID').val('');
+                            $('#Discount').val('');
+                        }
+
+                }
+            });
+            }
+
+        });
+    })
+</script>

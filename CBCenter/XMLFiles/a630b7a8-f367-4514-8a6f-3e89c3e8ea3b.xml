@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Books>
+  <Book>
+    <BookID>160</BookID>
+    <BookName>HF NEW LEARNWELL HINDI SURABHI-2</BookName>
+    <Quantity>20</Quantity>
+    <GrossAmount>4300.0000</GrossAmount>
+    <Discount>15</Discount>
+    <TotalDiscount>15</TotalDiscount>
+    <DiscountAmt>645.0000</DiscountAmt>
+    <NetAmount>3655.0000</NetAmount>
+  </Book>
+  <Book>
+    <BookID>101</BookID>
+    <BookName>HF NEW LEARNWELL COMMUNICATIVE ENGLISH -4</BookName>
+    <Quantity>20</Quantity>
+    <GrossAmount>5500.0000</GrossAmount>
+    <Discount>10</Discount>
+    <TotalDiscount>10</TotalDiscount>
+    <DiscountAmt>550.0000</DiscountAmt>
+    <NetAmount>4950.0000</NetAmount>
+  </Book>
+  <Book>
+    <BookID>99</BookID>
+    <BookName>HF NEW LEARNWELL COMMUNICATIVE ENGLISH -2</BookName>
+    <Quantity>50</Quantity>
+    <GrossAmount>12250.0000</GrossAmount>
+    <Discount>20</Discount>
+    <TotalDiscount>20</TotalDiscount>
+    <DiscountAmt>2450.0000</DiscountAmt>
+    <NetAmount>9800.0000</NetAmount>
+  </Book>
+</Books>
